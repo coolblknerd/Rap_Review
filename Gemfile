@@ -23,6 +23,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bower-rails'
 gem 'devise'
 gem "angular-rails-templates"
+gem "sprockets", "~> 2.0"
 gem 'faker', '~> 1.6', '>= 1.6.3'
 
 # Use ActiveModel has_secure_password
