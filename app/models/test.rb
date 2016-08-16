@@ -1,7 +1,11 @@
 class Test
 
+  def initialize(options = {})
+    @name = options[:name]
+  end
+
   def hello
-    'hello'
+    @name
   end
 
 end
