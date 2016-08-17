@@ -58,6 +58,9 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
+  # Factory Girl Configurations
+  config.include FactoryGirl::Syntax::Methods
+
   # Devise Configurations
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::ControllerHelpers, type: :view
@@ -68,4 +71,11 @@ RSpec.configure do |config|
   config.before(:each, :type => :feature) { DatabaseCleaner.strategy = :truncation }
   config.before(:each) { DatabaseCleaner.start }
   config.after(:each) { DatabaseCleaner.clean }
+end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
 end
