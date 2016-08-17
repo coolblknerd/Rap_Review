@@ -6,12 +6,17 @@ class Album < ActiveRecord::Base
   validates :title, presence: true
   validates :label, presence: true
 
-  before_validation :ensure_label_has_a_value
+  after_initialize :ensure_label_has_a_value
 
-  protected
+  private
 
+  # Set only if label IS NOT set
   def ensure_label_has_a_value
+    self.label ||= independent
+  end
 
+  def independent
+    "Independent"
   end
 
 end

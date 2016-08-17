@@ -11,9 +11,9 @@ RSpec.describe Album do
     it { album.should validate_presence_of(:title) }
     it { album.should validate_presence_of(:label) }
 
-    it "defaults to 'Independent' if label is nil" do
-      album = FactoryGirl.create(:album, label: nil)
-      album.should eq("Independent")
+    it "defaults label to 'Independent' if nil" do
+      views = Album.new(title: "Views", label: nil)
+      views.label.should eq("Independent")
     end
   end
 end
