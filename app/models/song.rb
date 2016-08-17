@@ -3,5 +3,4 @@ class Song < ActiveRecord::Base
   belongs_to :artist
 
   validate :title
-  validate :artist
 end

@@ -7,6 +7,11 @@ RSpec.describe Song, type: :model do
 
     it { should belong_to(:album) }
     it { should belong_to(:artist) }
+    it { views.should be_valid }
+
+    it "has a valid factory" do
+      FactoryGirl.create(:song).should be_valid
+    end
 
     it "returns the title of the song" do
       expect(views.title).to eq("Views")
@@ -20,6 +25,5 @@ RSpec.describe Song, type: :model do
       expect(views.writers).to eq("Drake")
     end
 
-    it { views.should be_valid }
   end
 end
