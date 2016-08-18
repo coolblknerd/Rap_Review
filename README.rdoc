@@ -1,28 +1,10 @@
-== README
+== Rap Review App ==
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+8/17/16 - Things to Focus On
+-----------------------------
+1. Finish Artist Controller/Test - Completed
+2. Paperclip Gem - 
+3. Begin Album Controller/Test
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+-- Notes --
+* When writing out test for the delete method, be sure to use before instead of let.  Apparently, let lazily loads up the variable, not loading it until you actually call on it in a test.  Yet, with you're trying to delete something from the database, the query should already be in the database, which is why you would want to use before.  Before actually creates the variable and when it's called upon in the test, the test is actually querying it from the database which is to the advantage of the 'DELETE destroy' test because it can actually grab something from the database and remove it.
