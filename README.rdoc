@@ -1,10 +1,25 @@
-== Rap Review App ==
+-- Rap Review App --
+
+The Rap Review app allows users to rate and review albums as objectively as possible by allowing them to rate each song from an artist by album or mixtape.  The app then aggregates an average score of the album based on the totality of ratings of their songs.  Then each album/mixtape rating is aggregated to create an overall score for the artist.
 
 8/17/16 - Things to Focus On
 -----------------------------
 1. Finish Artist Controller/Test - Completed
-2. Paperclip Gem - 
-3. Begin Album Controller/Test
+2. Paperclip Gem - Completed
+3. Begin Album Controller/Test - Started
 
 -- Notes --
 * When writing out test for the delete method, be sure to use before instead of let.  Apparently, let lazily loads up the variable, not loading it until you actually call on it in a test.  Yet, with you're trying to delete something from the database, the query should already be in the database, which is why you would want to use before.  Before actually creates the variable and when it's called upon in the test, the test is actually querying it from the database which is to the advantage of the 'DELETE destroy' test because it can actually grab something from the database and remove it.
+
+* When dealing with nested resources it's best to use the 'shallow nesting' feature which takes out the wordy-ness of nested URLs.  Looks like it focuses on using the names of both resources only on the index, create, and new paths.  If I'm thinking about the logic correctly, then it's only focusing on the index because it wants to make sure all the objects nested under the parent are available.  While, the only time it's important to have the parent id attached to a new instance of the child is when you're creating it.  Once it's logged into the database you don't have to worry about changing.
+
+* Using Jamis Buck's idea on practical deep nesting to avoid breaking his "Resouces should never be nested more than one level deep" rule.  This rule will help maintain the codebase of the app in the long run. Made a few alterations to clean-up the routes. Should routes be nested more than one level deep?
+
+-----------------------------
+
+8/18/16 - Things to Focus On
+-----------------------------
+1. Album Controller/Test
+2. Begin Song Controller/Test
+
+-- Notes --
