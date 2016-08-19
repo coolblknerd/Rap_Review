@@ -15,6 +15,8 @@ The Rap Review app allows users to rate and review albums as objectively as poss
 
 * Using Jamis Buck's idea on practical deep nesting to avoid breaking his "Resouces should never be nested more than one level deep" rule.  This rule will help maintain the codebase of the app in the long run. Made a few alterations to clean-up the routes. Should routes be nested more than one level deep?
 
+* Ran into an issue running the test on the albums because of it's association with artist.  First I had to test the index to make sure it was properly assigning the artist to the instance variable.  Once this test was passed I focused on making sure the @albums variable was properly assigned based on the artist id.  The test failed several times before I made some changes to the factories explicitly stating the id for the artist and the artist_id for the album.  This will help greatly for understanding how to test the rest of the controller and for future test on the Songs Controller since it also deals with association.  Testing controllers with associations suck!
+
 -----------------------------
 
 8/18/16 - Things to Focus On
@@ -23,3 +25,5 @@ The Rap Review app allows users to rate and review albums as objectively as poss
 2. Begin Song Controller/Test
 
 -- Notes --
+* Worked on the "GET show" and I ran into some issues trying to get the test and the controller right.  Because I'm using the shallow nesting feature on my routes there was some confusion on my end as to if I should still find the artist by id first and then find the albums through the artist or if I could just find the albums by the album id.  When I run rake routes it shows me that I can link to the show action of the album without placing the artist param first.  In the controller I called the album without having to locate the artist but in the controller test I have to call the artist_id first.  I'm assuming this is because of the associations that the test is picking on the album.  The warning seemed to indicate that a artist_id was needed in order to properly find the album.  I wonder does RSpec recognize shallow nesting or does that feature get overridden?
+* 
