@@ -21,9 +21,28 @@ The Rap Review app allows users to rate and review albums as objectively as poss
 
 8/18/16 - Things to Focus On
 -----------------------------
-1. Album Controller/Test
-2. Begin Song Controller/Test
+1. Album Controller/Test - Unfinished
+2. Begin Song Controller/Test - Didn't Start
 
 -- Notes --
 * Worked on the "GET show" and I ran into some issues trying to get the test and the controller right.  Because I'm using the shallow nesting feature on my routes there was some confusion on my end as to if I should still find the artist by id first and then find the albums through the artist or if I could just find the albums by the album id.  When I run rake routes it shows me that I can link to the show action of the album without placing the artist param first.  In the controller I called the album without having to locate the artist but in the controller test I have to call the artist_id first.  I'm assuming this is because of the associations that the test is picking on the album.  The warning seemed to indicate that a artist_id was needed in order to properly find the album.  I wonder does RSpec recognize shallow nesting or does that feature get overridden?
-* 
+
+------------------------------
+
+8/19/16 - Focus Points
+--------------------------
+1. Finish Album Controller/Test - Finished
+2. Begin Song Controller/Test - Starting Next
+
+-- Notes --
+* The rest of the test went smooth for the most part.  Ran into a lot of errors that were familiar from the first controller test.  Because many of my issues were already documented I just troubleshooted the problems with old solutions and things seemed to workout fine.  The note about the delete method test came in handy the most.  Granted, when testing a controller dealing with associations, I had to pass in more specific arguments/params in order for the test to pick them up properly.  Also, the shallow nesting feature can cause a few headaches while testing so it's probably best to keep a screen up that shows you all of your routes so you can have a better idea of the args you may need to pass in.
+
+--------------------------------
+
+8/20/16 - Focus Points
+---------------------------
+1. Begin Song Controller/Test -
+2. Add Pry to Workflow -
+3. Begin User Test -
+
+-- Notes --
