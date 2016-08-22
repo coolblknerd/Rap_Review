@@ -1,20 +1,14 @@
 source 'https://rubygems.org'
 
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
-# Use postgresql as the database for Active Record
 gem 'pg', '~> 0.15'
-# Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
-# Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-# Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
-# Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
@@ -26,30 +20,38 @@ gem "angular-rails-templates"
 gem "sprockets", "~> 2.0"
 gem 'faker', '~> 1.6', '>= 1.6.3'
 gem 'paperclip', '~> 5.0'
+gem "puma"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
-# Use Unicorn as the app server
-# gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
+
+  # Rspec Gems
   gem 'rspec-rails', '~> 3.5', '>= 3.5.1'
   gem 'guard-rspec', '~> 4.7', '>= 4.7.3'
   gem 'rspec-mocks', '~> 3.5'
+  gem 'shoulda-matchers', '~> 3.1', '>= 3.1.1'
+
+  # Misc Test Gems
   gem 'poltergeist', '~> 1.9'
   gem 'database_cleaner', '~> 1.5', '>= 1.5.3'
   gem 'teaspoon-jasmine', '~> 2.3', '>= 2.3.4'
-  gem 'shoulda-matchers', '~> 3.1', '>= 3.1.1'
   gem 'factory_girl_rails', '~> 4.7'
+  gem 'better_errors', '~> 2.1', '>= 2.1.1'
+  gem 'byebug'
+
+  # Pry gems
+  gem 'pry-rails', '~> 0.3.4'
+  gem 'pry-byebug', '~> 3.4'
+  gem 'pry-stack_explorer', '~> 0.4.9.2'
+  gem 'pry-rescue', '~> 1.4', '>= 1.4.4'
+
 end
 
 group :development do
-  # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 end

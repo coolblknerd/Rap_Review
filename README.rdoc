@@ -19,6 +19,7 @@ The Rap Review app allows users to rate and review albums as objectively as poss
 
 -----------------------------
 
+
 8/18/16 - Things to Focus On
 -----------------------------
 1. Album Controller/Test - Unfinished
@@ -28,6 +29,7 @@ The Rap Review app allows users to rate and review albums as objectively as poss
 * Worked on the "GET show" and I ran into some issues trying to get the test and the controller right.  Because I'm using the shallow nesting feature on my routes there was some confusion on my end as to if I should still find the artist by id first and then find the albums through the artist or if I could just find the albums by the album id.  When I run rake routes it shows me that I can link to the show action of the album without placing the artist param first.  In the controller I called the album without having to locate the artist but in the controller test I have to call the artist_id first.  I'm assuming this is because of the associations that the test is picking on the album.  The warning seemed to indicate that a artist_id was needed in order to properly find the album.  I wonder does RSpec recognize shallow nesting or does that feature get overridden?
 
 ------------------------------
+
 
 8/19/16 - Focus Points
 --------------------------
@@ -39,10 +41,35 @@ The Rap Review app allows users to rate and review albums as objectively as poss
 
 --------------------------------
 
+
 8/20/16 - Focus Points
 ---------------------------
-1. Begin Song Controller/Test -
-2. Add Pry to Workflow -
-3. Begin User Test -
+1. Begin Song Controller/Test - Complete
+2. Add Pry to Workflow - Complete
+3. Begin User Test - Unfinished
+
+-- Notes --
+* Testing the new method in the song controller brings up an interesting instance.  I've tested two different ways of building a new instance of 'Song'.  One, using '@song = Song.new', the other being '@song = @album.songs.buid'.  Both pass.  I'm sure this has a lot to do with the way my routes are set-up.  I have my routes nested with one outlier (resources :songs) that I believe has more to do with why both test pass than anything.  I do want a song resource on it's own because there are some songs that may not have albums attached to them but have a artist attached to them.  I will have to pay close attention to how this issue may affect the app's development in the future in regards to how songs are being saved to the database.
+
+* Funky bug in the songs model test & factory.  After adding the artist_id and album_id into the songs factory, the test for being a valid factory no longer passes.  I don't understand why is it that the test fails because of this small detail.  It's definitely something I'm going to have to snoop around for.
+
+--------------------------------
+
+
+8/21/16 - Focus Points
+--------------------------
+1. Begin User Test - Unfinished
+2. User State? - Unfinished
+
+-- Notes --
+* Today hasn't been much of a coding day because I've been doing a some research on user states.  I'm thinking about how I'm going to implement them into my app, also, I'm thinking about about what kinds of users will be using the site.  There will be guest, members, and admins definitely.  Mapping them out and the user states will be the priority now.  Once I do that I can go in and change the test I need to change according to how I want the controller to deal with each user and what they will have access to do.  Once this is done I will begin working on the views portion of the app.  Once I have all of this figured out I will begin end to end test to make sure everything is working just fine before beginning to implement Angular into the app.
+
+----------------------------------
+
+
+8/22/16 - Focus Points
+---------------------------
+1. User Roles/States -
+2. Begin User Test -
 
 -- Notes --
