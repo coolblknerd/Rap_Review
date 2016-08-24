@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Album do
 
   describe "initialization" do
-    let(:album) { FactoryGirl.create(:album) }
+    let(:album) { FactoryGirl.build(:album) }
 
     it { album.should be_valid }
     it { album.should have_many(:songs) }

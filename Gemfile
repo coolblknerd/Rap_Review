@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 gem 'rails', '4.2.6'
 gem 'pg', '~> 0.15'
 gem 'sass-rails', '~> 5.0'
@@ -21,6 +20,7 @@ gem "sprockets", "~> 2.0"
 gem 'faker', '~> 1.6', '>= 1.6.3'
 gem 'paperclip', '~> 5.0'
 gem "puma"
+gem 'pundit', '~> 1.1'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -35,6 +35,7 @@ group :development, :test do
   gem 'guard-rspec', '~> 4.7', '>= 4.7.3'
   gem 'rspec-mocks', '~> 3.5'
   gem 'shoulda-matchers', '~> 3.1', '>= 3.1.1'
+  gem 'pundit-matchers', '~> 1.1'
 
   # Misc Test Gems
   gem 'poltergeist', '~> 1.9'

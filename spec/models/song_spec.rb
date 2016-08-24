@@ -10,7 +10,7 @@ RSpec.describe Song, type: :model do
     it { views.should be_valid }
 
     it "has a valid factory" do
-      FactoryGirl.create(:song).should be_valid
+      FactoryGirl.build(:song).should be_valid
     end
 
     it "returns the title of the song" do

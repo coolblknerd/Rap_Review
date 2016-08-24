@@ -1,9 +1,10 @@
 class SongsController < ApplicationController
-  before_action :find_album, only: [:index, :new, :create, :destroy]
+  before_action :find_album, only: [ :new, :create, :destroy]
   before_action :find_song, only: [:show, :edit, :update]
 
   def index
-    @songs = @album.songs.all
+    @artist = Artist.find(params[:artist_id])
+    @songs = @artist.songs.all
   end
 
   def show

@@ -7,6 +7,8 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'capybara/poltergeist'
 require 'capybara/rails'
+require 'pundit/rspec'
+require 'database_cleaner'
 Capybara.javascript_driver = :poltergeist
 Capybara.default_driver = :poltergeist
 # Add additional requires below this line. Rails is not loaded until this point!
@@ -58,6 +60,10 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  # Support Modules
+  # config.include Features, type: :feature
+  # config.include Features::SessionHelpers, type: :feature
 
   # Factory Girl Configurations
   config.include FactoryGirl::Syntax::Methods

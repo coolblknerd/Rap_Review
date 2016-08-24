@@ -8,9 +8,9 @@ RSpec.describe SongsController, type: :controller do
 
   describe "GET index" do
 
-    it "assigns @album" do
-      get :index, artist_id: artist, album_id: album
-      assigns(:album).should eq(album)
+    it "assigns @artist" do
+      get :index, artist_id: artist
+      assigns(:artist).should eq(artist)
     end
 
     it "assigns @songs" do

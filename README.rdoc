@@ -69,7 +69,36 @@ The Rap Review app allows users to rate and review albums as objectively as poss
 
 8/22/16 - Focus Points
 ---------------------------
-1. User Roles/States -
-2. Begin User Test -
+1. User Roles/States - DS (Didn't Start)
+2. Begin User Test - DS
 
 -- Notes --
+* To help define user roles I will use Pundit over the CanCanCan gem.  Despite the overwhelming support CanCan has, the further I researched about the gem the more I learned about how much of a mess it can become as a app grows larger since the app defines all of the user roles in one class.  Pundit, however, uses separate classes, can be written in plain ruby, and doesn't add a bunch of complicated DSL. I'm not clear on the instructions so I'm going to build out the views and play around with the gem a little bit before I continue to build out the app.  So now my focus revert to building the views.
+
+-------------------------------
+
+
+8/23/16 - Focus Points
+---------------------------
+1. User Roles/States - Will Begin After User Testing
+2. Begin User Test - Began
+
+-- Notes --
+* Figured out how to make my album test pass after they started failing.  Apparently, I have to use the build method when I'm testing validation of a factory.  While using 'create' works just fine when I test for data.  This had to do with the order ActiveRecord decides to validate the params of a new instance.
+
+* While doing some research on establishing user roles/authorization I stumbled upon 'has_many/through' associations.  This association allows a user to set-up "shortcuts" through nested has_many associations.  So now instead of me having to call the album then call the song from the album, I can call the song directly on the associated artist.  To be clear, right now I have a Artist who has many albums and many songs, an Album that belongs to Artist but has many songs, and a Song class who belongs to Artist and Album.  Normally, I would find the Artist, then the Album, then the Song.  But once I set the has_many :songs, through: :albums I can skip finding the album and just call the song on Artist like...
+
+@artist = Artist.find(params[:artist_id])
+@song = @artist.songs.find(params[:id])
+
+...which is going to clean up my songs controller and make it a lot less confusing to read.  With the 'has_many/through' association ActiveRecord will know it needs to find the parent/child through a third table.
+
+* When testing the User sign in page, take note of how using 'new' versus 'create' gives different results.  Appears that the sign-in will recognize any user that is 'created' as registered since it insinuates the user has already registered, hence, it assumes the user is saved to the database (only happens if everything is validated).  Whereas, using the 'new' method to will tell the test the user isn't registered (since their info has not been saved to the database) therefore this user info is invalid to sign in.
+
+------------------------------------
+
+
+8/24/16 - Focus Points
+---------------------------
+1. Continue User Test -
+2. User Roles - 
