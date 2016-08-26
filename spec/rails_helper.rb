@@ -65,6 +65,8 @@ RSpec.configure do |config|
   # config.include Features, type: :feature
   # config.include Features::SessionHelpers, type: :feature
 
+  config.include Warden::Test::Helpers
+
   # Factory Girl Configurations
   config.include FactoryGirl::Syntax::Methods
 

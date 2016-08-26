@@ -1,5 +1,5 @@
 class SongsController < ApplicationController
-  before_action :find_album, only: [ :new, :create, :destroy]
+  before_action :find_album, only: [:new, :create, :destroy]
   before_action :find_song, only: [:show, :edit, :update]
 
   def index

@@ -26,4 +26,9 @@ feature 'Sign In', :devise do
     sign_in(User.new(email: 'me@email.com', password: 'password'))
     page.should have_content 'Invalid Email or password'
   end
+
+  scenario 'user cannot sign in because of invalid password' do
+    sign_in(User.create(email: 'me@email.com', password: nil))
+    page.should have_content 'Invalid Email or password'
+  end
 end
