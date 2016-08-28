@@ -1,11 +1,11 @@
 class User < ActiveRecord::Base
 
-  enum role: [:user, :member, :admin]
+  enum role: [:member, :admin]
 
   after_initialize :set_default_role, if: :new_record?
 
   def set_default_role
-    self.role ||= :user
+    self.role ||= :member
   end
 
   # Include default devise modules. Others available are:

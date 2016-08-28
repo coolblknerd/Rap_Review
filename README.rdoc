@@ -98,7 +98,14 @@ The Rap Review app allows users to rate and review albums as objectively as poss
 ------------------------------------
 
 
-8/24/16 - Focus Points
+8/26/16 - Focus Points
 ---------------------------
 1. Continue User Test -
-2. User Roles - 
+2. User Roles -
+
+-- Notes --
+* Installed the 'spring' gem so that my app can stay running in the background to speed up my test.  This is going to be more helpful for all of the feature test I will will now be working on.
+
+* I'm going to get rid of the guest option from the roles and just focus on the guest and admin, preferably the admin.  User test will be written to test the admin and member roles from the outside in.  I'm going to build out a users index page only accessible for the admin.  This will allow me to maintain roles of users and down the line develop a page which will allow me to keep up with user state.
+
+* 

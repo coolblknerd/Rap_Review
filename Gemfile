@@ -37,7 +37,7 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 3.1', '>= 3.1.1'
   gem 'pundit-matchers', '~> 1.1'
 
-  # Misc Test Gems
+  # Misc. Test Gems
   gem 'poltergeist', '~> 1.9'
   gem 'database_cleaner', '~> 1.5', '>= 1.5.3'
   gem 'teaspoon-jasmine', '~> 2.3', '>= 2.3.4'
@@ -50,6 +50,10 @@ group :development, :test do
   gem 'pry-byebug', '~> 3.4'
   gem 'pry-stack_explorer', '~> 0.4.9.2'
   gem 'pry-rescue', '~> 1.4', '>= 1.4.4'
+
+  # Spring gems
+  gem 'spring-commands-rspec', '~> 1.0', '>= 1.0.4'
+  gem 'spring', '~> 1.7', '>= 1.7.2'
 
 end
 
