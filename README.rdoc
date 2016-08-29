@@ -100,12 +100,26 @@ The Rap Review app allows users to rate and review albums as objectively as poss
 
 8/26/16 - Focus Points
 ---------------------------
-1. Continue User Test -
-2. User Roles -
+1. Continue User Test - Index permissions
+2. User Roles - Mapped out
 
 -- Notes --
 * Installed the 'spring' gem so that my app can stay running in the background to speed up my test.  This is going to be more helpful for all of the feature test I will will now be working on.
 
 * I'm going to get rid of the guest option from the roles and just focus on the guest and admin, preferably the admin.  User test will be written to test the admin and member roles from the outside in.  I'm going to build out a users index page only accessible for the admin.  This will allow me to maintain roles of users and down the line develop a page which will allow me to keep up with user state.
 
-* 
+* Took me awhile (around 4 hours) but I finally figured out how to test my User Policy in RSpec.  I ran into a lot of issues with how to set the test up, mainly the syntax, and it's pretty straight-forward.  Instead of using context/describe Pundit requires 'permissions {action}?' in order to properly test the actions.  The way people have shown to test Pundit has me questioning if they made any changes to their environment?  Now I'm going to TDD my User Policy to build out the user roles and the controllers that will be associated with them.  I will have to make some changes to the the Artist/Album/Song controllers but once I've finished testing the Users, the roles and updating the controllers I'll be able to build out the views and test more features.
+
+--------------------------------------
+
+
+8/27/16 - Focus Points
+-----------------------------
+1. - User Policy Test - Completed Artist Controller Authorization
+
+-- Notes --
+* So there are times when testing the Policy model when you need to pass two arguments.  If this is the case, the first argument represents the current user and the second argument should represent the trait/attribute/role you want to pass in.  I'm not completely sure about this but I'm assuming this is how testing pundit works.  I'm going to have to experiment with it more when I test other controllers.  With more test I'll be able to narrow exactly what the second argument exactly should be.
+
+* For the artist controller I tested the guest, member, and admin access just to make sure every thing tested the way I wanted.  From not on I will assume if the guest has access to a page then any user with a higher level access can get to the page.  Don't want to build a habit of writing pointless test.  I believe this is a safe assumption.
+
+*

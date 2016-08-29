@@ -36,6 +36,7 @@ group :development, :test do
   gem 'rspec-mocks', '~> 3.5'
   gem 'shoulda-matchers', '~> 3.1', '>= 3.1.1'
   gem 'pundit-matchers', '~> 1.1'
+  gem 'fuubar', '~> 2.2'
 
   # Misc. Test Gems
   gem 'poltergeist', '~> 1.9'
