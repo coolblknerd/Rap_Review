@@ -120,6 +120,50 @@ The Rap Review app allows users to rate and review albums as objectively as poss
 -- Notes --
 * So there are times when testing the Policy model when you need to pass two arguments.  If this is the case, the first argument represents the current user and the second argument should represent the trait/attribute/role you want to pass in.  I'm not completely sure about this but I'm assuming this is how testing pundit works.  I'm going to have to experiment with it more when I test other controllers.  With more test I'll be able to narrow exactly what the second argument exactly should be.
 
-* For the artist controller I tested the guest, member, and admin access just to make sure every thing tested the way I wanted.  From not on I will assume if the guest has access to a page then any user with a higher level access can get to the page.  Don't want to build a habit of writing pointless test.  I believe this is a safe assumption.
+* For the artist controller I tested the guest, member, and admin access just to make sure everything tested the way I wanted.  From not on I will assume if the guest has access to a page then any user with a higher level access can get to the page.  Don't want to build a habit of writing pointless test.  I believe this is a safe assumption.
 
-*
+* Now that my Artist Policy model is complete my artist controller test is broken.  The main error I'm receiving has to do returning nil/empty values.  I'm positive this has something to do with authorization enabled on the controller now.  I may need to use a double with attributes that replicate a user with authorization.
+
+--------------------------------------
+
+
+8/29/16 - Focus Points
+------------------------------
+1. Correcting Artist Controller Test - Corrected everything but render/redirect test
+2. Begin Album Policy/Controller TDD - On Hold
+
+-- Notes --
+* I've been working on fixing the Artist controller and some of the issues came from the Pundit helper methods.  The 'after_action' helper method was performing extra verification on my methods which was causing many of my test to fail.  I've removed the extra verifications and now most of the test are passing with the exceptions of the test which require redirection, rendering, or change to the database.
+
+--------------------------------------
+
+
+8/30/16 - Focus Points
+------------------------------
+1. Correct Artist Controller Test - On Hold
+2. Write out Album Controller Feature Spec - Issues with redirect
+
+-- Notes --
+* I created the my first feature spec for the Artist controller.  I only tested for directing me to the form and filling it out out, submitting the artist form and returning the user to the new artist page.  Everything checks out.  I still need to test for guest and user authorization just to make sure either user doesn't have access to creating a new artist.  Regardless, I don't plan on either seeing the button for creating a user.
+
+--------------------------------------
+
+
+8/31/16 - Focus Points
+------------------------------
+1. Write out Album Controller Feature Spec - Completed 1st Test of "create_artist_spect"
+2. Fix syntax of Album Controller Test - COMPLETE!
+
+-- Notes --
+* Had a lot of trouble with the 'admin can create a artist' spec because I couldn't figure out how to properly word the syntax in the capybara test in order for it to pass.  I tried out the actual app to see if it worked and it did, therefore I knew there was something wrong with my test and not the app.  First, I needed to make some changes to my user factory, creating a trait for "admin" and "member".  Then, I added a flash message to the controller to create a easier target for capybara to find after adding the artist.  I tried it with admin and the test passed for finding "Artist Created", then I tried it with member, only for the test to fail as expected.  At this point, I knew the test was working, I just needed to readjust the syntax in the test.  Funny thing is, the correct syntax was working ( 'expect(current_path).to eq(Artist.last)' ) but me failing to pass ':admin' is what kept causing the test to revert back to the new page.
+
+* I FINALLY FIXED MY CONTROLLER TEST!!!  All I had to do was pass the ':admin' role into the created FactoryGirl object and BOOM!!!  In order to pass your authorization test with pundit, you have to be sure to pass in the role when creating the user factory!  Definitely going to write a blog about Pundit, authorization, and how to test it ASAP!
+
+--------------------------------------
+
+
+9/1/16 - Focus Points
+-----------------------------
+1. Write out edge cases for Create Artist Spec -
+
+-- Notes --

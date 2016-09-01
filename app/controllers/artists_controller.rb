@@ -1,7 +1,6 @@
 class ArtistsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
   before_action :find_artist, only: [:show, :edit, :update, :destroy]
-  after_action :verify_authorized
 
   def index
     @artists = Artist.all
@@ -19,8 +18,10 @@ class ArtistsController < ApplicationController
     authorize @artist
 
     if @artist.save
+      flash[:success] = "Artist Created"
       redirect_to @artist
     else
+      flash[:error] = "Sorry, We Couldn't Save the Artist"
       render 'new'
     end
   end

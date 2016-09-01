@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe ArtistsController, type: :controller do
 
+  let(:user) { FactoryGirl.create(:user, :admin)}
+
   describe "GET index" do
 
     it "assigns @artists" do
@@ -34,11 +36,13 @@ RSpec.describe ArtistsController, type: :controller do
     let(:artist) { Artist.new }
 
     it "assigns @artist" do
+      sign_in user
       get :new
       expect(assigns(:artist)).to be_a_new(Artist)
     end
 
     it "renders the new template" do
+      sign_in user
       get :new
       expect(response).to render_template('new')
     end
@@ -49,11 +53,13 @@ RSpec.describe ArtistsController, type: :controller do
     context "with valid attributes" do
 
       it "redirects to the new artist page" do
+        sign_in user
         post :create, artist: FactoryGirl.attributes_for(:artist)
-        response.should redirect_to(Artist.last)
+        expect(response).to redirect_to Artist.last
       end
 
       it "adds a new artist" do
+        sign_in user
         expect{ post :create, artist: FactoryGirl.attributes_for(:artist) }.to change(Artist, :count).by(1)
       end
     end
@@ -61,11 +67,13 @@ RSpec.describe ArtistsController, type: :controller do
     context "with invalid attributes" do
 
       it "renders the new template" do
+        sign_in user
         post :create, artist: FactoryGirl.attributes_for(:invalid_artist)
-        response.should render_template 'new'
+        expect(response).to render_template 'new'
       end
 
       it "does not save the new artist" do
+        sign_in user
         expect{ post :create, artist: FactoryGirl.attributes_for(:invalid_artist) }.to change(Artist, :count).by(0)
       end
     end
@@ -74,6 +82,7 @@ RSpec.describe ArtistsController, type: :controller do
   describe "GET edit" do
 
     it "renders the selected artist edit page & assigns @artist" do
+      sign_in user
       artist = FactoryGirl.create(:artist)
       get :edit, id: artist
       response.should render_template('edit')
@@ -84,6 +93,7 @@ RSpec.describe ArtistsController, type: :controller do
   describe "PUT update" do
 
     before :each do
+      sign_in user
       @artist = FactoryGirl.create(:artist)
     end
 
@@ -130,12 +140,14 @@ RSpec.describe ArtistsController, type: :controller do
     end
 
     it "deletes the selected artist" do
+      sign_in user
       expect{
         delete :destroy, id: @artist
       }.to change(Artist, :count).by(-1)
     end
 
     it "redirects to artist index path" do
+      sign_in user
       delete :destroy, id: @artist
       response.should redirect_to(artists_path)
     end
