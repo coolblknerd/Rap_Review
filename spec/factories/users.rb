@@ -8,6 +8,7 @@ FactoryGirl.define do
     end
 
     trait :member do
+      email 'test_member@email.com'
       role 'member'
     end
 

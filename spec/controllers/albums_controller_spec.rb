@@ -4,6 +4,7 @@ RSpec.describe AlbumsController, type: :controller do
 
   let(:artist) { FactoryGirl.create(:artist) }
   let(:album) { FactoryGirl.create(:album) }
+  let(:user) { FactoryGirl.create(:user, :admin)}
 
   describe "GET index" do
 
@@ -59,10 +60,12 @@ RSpec.describe AlbumsController, type: :controller do
     context "with valid attributes" do
 
       it "adds a new album" do
+        sign_in user
         expect{ post :create, artist_id: artist, album: FactoryGirl.attributes_for(:album) }.to change(Album, :count).by(1)
       end
 
       it "redirects to the album page" do
+        sign_in user
         post :create, artist_id: artist, album: FactoryGirl.attributes_for(:album)
         response.should redirect_to(Album.last)
       end
@@ -71,10 +74,12 @@ RSpec.describe AlbumsController, type: :controller do
     context "with invalid attributes" do
 
       it "does not add album" do
+        sign_in user
         expect{ post :create, artist_id: artist, album: FactoryGirl.attributes_for(:invalid_album) }.to change(Album, :count).by(0)
       end
 
       it "renders the new template" do
+        sign_in user
         post :create, artist_id: artist, album: FactoryGirl.attributes_for(:invalid_album)
         response.should render_template('new')
       end
@@ -97,11 +102,13 @@ RSpec.describe AlbumsController, type: :controller do
     context "with valid attributes" do
 
       it "assigns @album" do
+        sign_in user
         put :update, artist_id: artist, id: album, album: FactoryGirl.attributes_for(:album)
         assigns(:album).should eq(album)
       end
 
       it "changes the attributes of the album" do
+        sign_in user
         put :update, artist_id: artist, id: album, album: FactoryGirl.attributes_for(:album, title: "56 Nights", label: "Cash Money")
         album.reload
         album.title.should_not eq('DS2')
@@ -109,6 +116,7 @@ RSpec.describe AlbumsController, type: :controller do
       end
 
       it "redirects to artist page" do
+        sign_in user
         put :update, artist_id: artist, id: album, album: FactoryGirl.attributes_for(:album, title: '56 Nights', label: 'Cash Money')
         album.reload
         response.should redirect_to album
@@ -118,12 +126,14 @@ RSpec.describe AlbumsController, type: :controller do
     context "with invalid attributes" do
 
       it "does not change the attributes of the album" do
+        sign_in user
         put :update, artist_id: artist, id: album, album: FactoryGirl.attributes_for(:album, title: nil)
         album.reload
         album.title.should eq('DS2')
       end
 
       it "renders the edit page" do
+        sign_in user
         put :update, artist_id: artist, id: album, album: FactoryGirl.attributes_for(:album, title: nil)
         album.reload
         response.should render_template('edit')
@@ -139,11 +149,13 @@ RSpec.describe AlbumsController, type: :controller do
     end
 
     it "assigns @album" do
+      sign_in user
       delete :destroy, artist_id: @artist, id: @album
       assigns(:album).should eq(@album)
     end
 
     it "removes the album" do
+      sign_in user
       expect{
          delete :destroy, artist_id: @artist, id: @album
        }.to change(Album, :count).by(-1)

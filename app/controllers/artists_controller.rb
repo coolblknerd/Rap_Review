@@ -33,8 +33,10 @@ class ArtistsController < ApplicationController
     authorize @artist
 
     if @artist.update(artist_params)
+      flash[:success] = "Artist successfully updated"
       redirect_to @artist
     else
+      flash[:error] = "Please enter valid values"
       render 'edit'
     end
   end
@@ -42,6 +44,7 @@ class ArtistsController < ApplicationController
   def destroy
     authorize @artist
     @artist.destroy
+    flash[:succes] = "Artist successfully deleted"
     redirect_to artists_path
   end
 

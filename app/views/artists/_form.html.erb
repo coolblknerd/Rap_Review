@@ -1,4 +1,16 @@
-<%= form_for @artist do |f| %>
+
+  <%= form_for @artist do |f| %>
+
+  <% if @artist.errors.any? %>
+  <div id="errors">
+    <h2 class='alert alert-danger'><%= pluralize(@artist.errors.count, 'error') %> stopped this post from saving.</h2>
+    <ul>
+      <% @artist.errors.full_messages.each do |msg| %>
+      <li class='alert alert-info'><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
 
   <div class="form-group">
     <%= f.label :name %>
@@ -19,4 +31,4 @@
     <%= f.submit 'Add Artist', class: 'btn btn-primary' %>
   </div>
 
-<% end %>
+  <% end %>

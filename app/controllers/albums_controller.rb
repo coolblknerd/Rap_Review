@@ -15,6 +15,7 @@ class AlbumsController < ApplicationController
 
   def create
     @album = @artist.albums.create(album_params)
+    authorize @album
 
     if @album.save
       redirect_to album_path(@album)
@@ -27,6 +28,7 @@ class AlbumsController < ApplicationController
   end
 
   def update
+    authorize @album
     if @album.update(album_params)
       redirect_to @album
     else
@@ -36,6 +38,7 @@ class AlbumsController < ApplicationController
 
   def destroy
     @album = @artist.albums.find(params[:id])
+    authorize @album
     @album.destroy
 
     redirect_to artists_path

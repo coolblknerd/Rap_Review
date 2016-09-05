@@ -3,7 +3,11 @@
     <h1><%= artist.name %></h1>
     <small><%= artist.origin %></small>
     <p><%= artist.bio %></p>
+    <%= link_to "Edit Artist", edit_artist_path(artist), class: 'btn btn-default pull-right' %>
+    <%= link_to "Delete", artist_path(artist), method: :delete, class: 'btn btn-default pull-right' %>
+
   <% end %>
+
 </div><br />
 
 <%= link_to 'Create Artist', new_artist_path, class: 'btn btn-default' %>
