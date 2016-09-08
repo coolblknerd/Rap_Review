@@ -62,8 +62,8 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   # Support Modules
-  # config.include Features, type: :feature
   # config.include Features::SessionHelpers, type: :feature
+  # config.include SignInHelper, type: :feature
 
   config.include Warden::Test::Helpers
 

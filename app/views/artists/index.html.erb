@@ -3,6 +3,12 @@
     <h1><%= artist.name %></h1>
     <small><%= artist.origin %></small>
     <p><%= artist.bio %></p>
+    
+    <% artist.albums.each do |album| %>
+      <p><%= album.title %></p>
+    <% end %>
+
+    <%= link_to "Create Album", new_artist_album_path(artist), class: 'btn btn-primary' %>
     <%= link_to "Edit Artist", edit_artist_path(artist), class: 'btn btn-default pull-right' %>
     <%= link_to "Delete", artist_path(artist), method: :delete, class: 'btn btn-default pull-right' %>
 

@@ -1,0 +1,28 @@
+<%= form_for([@artist, @artist.albums.build]) do |f| %>
+
+<% if @album.errors.any? %>
+<div id="errors">
+  <h2 class='alert alert-danger'><%= pluralize(@album.errors.count, 'error') %> stopped this post from saving.</h2>
+  <ul>
+    <% @album.errors.full_messages.each do |msg| %>
+    <li class='alert alert-info'><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="form-group">
+  <%= f.label :title %>
+  <%= f.text_field :title, placeholder: 'Title', class: 'form-control', id: 'album_title' %>
+</div>
+
+<div class="form-group">
+  <%= f.label :label %>
+  <%= f.text_area :label, placeholder: 'Label', class: 'form-control', id: 'album_label' %>
+</div>
+
+<div>
+  <%= f.submit 'Add Album', class: 'btn btn-primary' %>
+</div>
+
+<% end %>

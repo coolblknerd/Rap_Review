@@ -175,3 +175,14 @@ The Rap Review app allows users to rate and review albums as objectively as poss
 * I've been playing around with the views.  Few things I need to fix. If a member logs on and go to the artists page the can still see the edit/create artist buttons, which need to be removed for anyone who isn't a admin.  If the user clicks on the edit/create artist buttons, the edit/create pages will pull up but they will deny the user from saving any changes to the database.
 
 * I was able to create the Album Policy, Policy Test, and fix the Controller to account for the new role authorizations within a hour.  Able to use some of the mistakes I endured while trying to figure out the Artist Controller/Policy.
+
+---------------------------------------
+
+
+9/7/16 - Focus Points
+------------------------------
+1. Create Helpers for Capybara Test - Still Trying to figure out
+2. Finish creating feature test for Album Controller - Finished adding Create Album Feature
+
+-- Notes --
+* 
