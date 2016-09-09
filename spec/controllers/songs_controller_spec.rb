@@ -5,6 +5,7 @@ RSpec.describe SongsController, type: :controller do
   let(:artist) { FactoryGirl.create(:artist) }
   let(:album) { FactoryGirl.create(:album) }
   let(:song) { FactoryGirl.create(:song) }
+  let(:admin) { FactoryGirl.create(:user, :admin)}
 
   describe "GET index" do
 
@@ -55,14 +56,16 @@ RSpec.describe SongsController, type: :controller do
     context "with valid attributes" do
 
       it "add a new song" do
+        sign_in admin
         expect{
           post :create, artist_id: artist, album_id: album, song: FactoryGirl.attributes_for(:song)
         }.to change(Song, :count).by(1)
       end
 
-      it "redirects to the song page" do
+      it "redirects to the album show page" do
+        sign_in admin
         post :create, artist_id: artist, album_id: album, song: FactoryGirl.attributes_for(:song)
-        response.should redirect_to(Song.last)
+        response.should redirect_to(album_path(album))
       end
 
     end
@@ -70,12 +73,14 @@ RSpec.describe SongsController, type: :controller do
     context "with invalid attributes" do
 
       it "does not add a new song" do
+        sign_in admin
         expect{
           post :create, artist_id: artist, album_id: album, song: FactoryGirl.attributes_for(:invalid_song)
         }.to change(Song, :count).by(0)
       end
 
       it "renders the new template" do
+        sign_in admin
         post :create, artist_id: artist, album_id: album, song: FactoryGirl.attributes_for(:invalid_song)
         response.should render_template('new')
       end
@@ -99,6 +104,7 @@ RSpec.describe SongsController, type: :controller do
     context "with valid attributes" do
 
       it "updates the song" do
+        sign_in admin
         put :update, artist_id: artist, album_id: album, id: song, song: FactoryGirl.attributes_for(:song, title: "Wicked", features: true)
         song.reload
         song.title.should eq('Wicked')
@@ -107,6 +113,7 @@ RSpec.describe SongsController, type: :controller do
       end
 
       it "redirects to song after updating" do
+        sign_in admin
         put :update, artist_id: artist, album_id: album, id: song, song: FactoryGirl.attributes_for(:song, title: "Wicked", features: true)
         song.reload
         response.should redirect_to(song)
@@ -117,6 +124,7 @@ RSpec.describe SongsController, type: :controller do
     context "with invalid attributes" do
 
       it "should not update the song" do
+        sign_in admin
         put :update, artist_id: artist, album_id: album, id: song, song: FactoryGirl.attributes_for(:song, title: nil)
         song.reload
         song.title.should eq "Thought It Was a Drought"
@@ -124,6 +132,7 @@ RSpec.describe SongsController, type: :controller do
       end
 
       it "should render the edit page" do
+        sign_in admin
         put :update, artist_id: artist, album_id: album, id: song, song: FactoryGirl.attributes_for(:song, title: nil)
         song.reload
         response.should render_template 'edit'
@@ -140,13 +149,15 @@ RSpec.describe SongsController, type: :controller do
     end
 
     it "removes the song" do
+      sign_in admin
       expect{
-        delete :destroy, artist_id: @artist, album_id: @album, id: @song
+        delete :destroy, id: @song
       }.to change(Song, :count).by(-1)
     end
 
     it "redirect_to artist page" do
-      delete :destroy, artist_id: @artist, album_id: @album, id: @song
+      sign_in admin
+      delete :destroy, id: @song
       response.should redirect_to(artists_path)
     end
   end

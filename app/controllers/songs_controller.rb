@@ -1,6 +1,6 @@
 class SongsController < ApplicationController
-  before_action :find_album, only: [:new, :create, :destroy]
-  before_action :find_song, only: [:show, :edit, :update]
+  before_action :find_album, only: [:new, :create]
+  before_action :find_song, only: [:show, :edit, :update, :destroy]
 
   def index
     @artist = Artist.find(params[:artist_id])
@@ -16,10 +16,13 @@ class SongsController < ApplicationController
 
   def create
     @song = @album.songs.create(song_params)
+    authorize @song
 
     if @song.save
-      redirect_to @song
+      flash[:success] = 'Song successfully created'
+      redirect_to album_path(@album)
     else
+      flash[:error] = 'Sorry, we could not save your song'
       render 'new'
     end
 
@@ -29,17 +32,20 @@ class SongsController < ApplicationController
   end
 
   def update
+    authorize @song
 
     if @song.update(song_params)
+      flash[:success] = 'Song successfully updated'
       redirect_to song_path(@song)
     else
+      flash[:error] = 'Sorry, we could not update your song'
       render 'edit'
     end
 
   end
 
   def destroy
-    @song = @album.songs.find(params[:id])
+    authorize @song
     @song.destroy
 
     redirect_to artists_path

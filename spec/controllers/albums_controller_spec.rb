@@ -40,16 +40,19 @@ RSpec.describe AlbumsController, type: :controller do
   describe "GET new" do
 
     it "assigns @artist" do
+      sign_in user
       get :new, artist_id: artist
       expect(assigns(:artist)).to eq(artist)
     end
 
     it "assigns new instance in @album" do
+      sign_in user
       get :new, artist_id: artist
       expect(assigns(:album)).to be_a_new(Album)
     end
 
     it "renders the new template" do
+      sign_in user
       get :new, artist_id: artist
       response.should render_template('new')
     end
@@ -67,7 +70,7 @@ RSpec.describe AlbumsController, type: :controller do
       it "redirects to the album page" do
         sign_in user
         post :create, artist_id: artist, album: FactoryGirl.attributes_for(:album)
-        response.should redirect_to(Album.last)
+        response.should redirect_to artist_albums_path(artist)
       end
     end
 
@@ -90,6 +93,7 @@ RSpec.describe AlbumsController, type: :controller do
   describe "GET edit" do
 
     it "renders the edit template of the selected album & assigns album" do
+      sign_in user
       get :edit, artist_id: artist, id: album
       expect(assigns(:album)).to eq(album)
       response.should render_template('edit')

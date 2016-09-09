@@ -22,8 +22,7 @@ feature 'destroy artist' do
     click_on('Add Artist')
     artist = Artist.last
     visit artists_path
-    click_on 'Delete'
-    expect(page).to_not have_content artist.name
+    expect{ click_on 'Delete' }.to change(Artist, :count).by(-1)
   end
 
 end

@@ -1,4 +1,10 @@
 <h1>
   <%= @album.title %>
 </h1>
-<small><%= @album.label %></small>
+<small><%= @album.label %></small><br>
+
+<% @album.songs.each do |song| %>
+  <p><%= song.title %></p>
+<% end %>
+<br>
+<%= link_to 'Create Song', new_album_song_path(@album), class: 'btn btn-primary' %>

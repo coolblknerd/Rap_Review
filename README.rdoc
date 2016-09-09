@@ -13,7 +13,7 @@ The Rap Review app allows users to rate and review albums as objectively as poss
 
 * When dealing with nested resources it's best to use the 'shallow nesting' feature which takes out the wordy-ness of nested URLs.  Looks like it focuses on using the names of both resources only on the index, create, and new paths.  If I'm thinking about the logic correctly, then it's only focusing on the index because it wants to make sure all the objects nested under the parent are available.  While, the only time it's important to have the parent id attached to a new instance of the child is when you're creating it.  Once it's logged into the database you don't have to worry about changing.
 
-* Using Jamis Buck's idea on practical deep nesting to avoid breaking his "Resouces should never be nested more than one level deep" rule.  This rule will help maintain the codebase of the app in the long run. Made a few alterations to clean-up the routes. Should routes be nested more than one level deep?
+* Using Jamis Buck's idea on practical deep nesting to avoid breaking his "Resources should never be nested more than one level deep" rule.  This rule will help maintain the codebase of the app in the long run. Made a few alterations to clean-up the routes. Should routes be nested more than one level deep?
 
 * Ran into an issue running the test on the albums because of it's association with artist.  First I had to test the index to make sure it was properly assigning the artist to the instance variable.  Once this test was passed I focused on making sure the @albums variable was properly assigned based on the artist id.  The test failed several times before I made some changes to the factories explicitly stating the id for the artist and the artist_id for the album.  This will help greatly for understanding how to test the rest of the controller and for future test on the Songs Controller since it also deals with association.  Testing controllers with associations suck!
 
@@ -166,7 +166,7 @@ The Rap Review app allows users to rate and review albums as objectively as poss
 -----------------------------
 1. Write out edge cases for Create Artist Spec - Complete
 2. Build Views for Artist, Albums and Nav - Need to work on Album Views
-3. Write out Album Controller Policy/Policy Test = Complete
+3. Write out Album Controller Policy/Policy Test - Complete
 4. Edit Album Controller Spec - Complete
 
 -- Notes --
@@ -182,7 +182,32 @@ The Rap Review app allows users to rate and review albums as objectively as poss
 9/7/16 - Focus Points
 ------------------------------
 1. Create Helpers for Capybara Test - Still Trying to figure out
-2. Finish creating feature test for Album Controller - Finished adding Create Album Feature
+2. Finish creating feature test for Album Controller - Finished All Album Feature Test
 
 -- Notes --
+* Finished making the rest of the feature test for the Album MVC for the time being.  Figuring out the destroy feature was a bit tricky but it helped me understand some nuances of using inheritance in rails.  For example, when updating/deleting an object, there's no need to find the parent, then the object you're trying to manipulate.  You can find the object directly through the object's id.  The only time you need to call the parent is when getting a index or creating a new instance of the subclass.  At least this is what it appears to be when using the shallow nesting feature.
+
+* Still haven't figured out how to add a module/helper for the capybara test so that I won't have to keep repeating steps (DRY, DRY, DRY!!!).  Not causing any problems other than being annoying but it would make writing out my feature test a lot easier.
+
+---------------------------------------
+
+
+9/8/16 - Focus Points
+-------------------------------
+1. Begin Song Policy/Controller TDD - Completed
+2. Write out Song Feature Test - Create Song Feature Spec Complete
+
+* I'm going to write out the Song Feature Test first this time and build everything else out of it.  Just want to gain a different perspective on writing test out since I've begun to really understand how to write test.
+
+* Knocked out the Song Policy/Policy spec, as well as, editing the Song controller spec.  Using a feature test to help dictate helps get a top-down view of how you want your users to use the app.  It also gave me some direction with what part of the app I needed to work on.
+
+---------------------------------------
+
+
+9/9/16 - Focus Points
+--------------------------------
+1. Write Update/Destroy Song Feature Test -
+2. Implement Paperclip Gem to add Images -
+3. Rating feature next? -
+
 * 

@@ -40,10 +40,6 @@ feature 'creates albums' do
   scenario "member can't create a album" do
     sign_in member
     create_artist
-    visit artists_path
-    click_on 'Create Album'
-    fill_in('Title', with: 'King of Memphis')
-    click_on 'Add Album'
     expect(page).to have_content('Access Denied')
   end
 

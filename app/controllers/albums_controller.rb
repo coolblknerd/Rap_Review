@@ -1,6 +1,7 @@
 class AlbumsController < ApplicationController
-  before_action :find_artist, only: [:index, :new, :create, :destroy]
-  before_action :find_album, only: [:show, :edit, :update]
+  before_filter :authenticate_user!, except: [:index, :show]
+  before_action :find_artist, only: [:index, :new, :create]
+  before_action :find_album, only: [:show, :edit, :update, :destroy]
 
   def index
     @albums = @artist.albums.all
@@ -18,8 +19,10 @@ class AlbumsController < ApplicationController
     authorize @album
 
     if @album.save
-      redirect_to album_path(@album)
+      flash[:success] = 'Album successfully created'
+      redirect_to artist_albums_path(@artist)
     else
+      flash[:error] = "Sorry, the album didn't save"
       render 'new'
     end
   end
@@ -30,14 +33,15 @@ class AlbumsController < ApplicationController
   def update
     authorize @album
     if @album.update(album_params)
+      flash[:success] = "Album successfully updated"
       redirect_to @album
     else
+      flash[:error] = "Sorry, the album didn't update"
       render 'edit'
     end
   end
 
   def destroy
-    @album = @artist.albums.find(params[:id])
     authorize @album
     @album.destroy
 
