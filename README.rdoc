@@ -201,6 +201,8 @@ The Rap Review app allows users to rate and review albums as objectively as poss
 
 * Knocked out the Song Policy/Policy spec, as well as, editing the Song controller spec.  Using a feature test to help dictate helps get a top-down view of how you want your users to use the app.  It also gave me some direction with what part of the app I needed to work on.
 
+* Testing out the create song feature and when I took a look at the info being taken in the rails console I noticed that the songs are being created without a artist ID.  I need to figure out how to make sure the artist id is always attached to the song before moving forward too far ahead.
+
 ---------------------------------------
 
 
@@ -210,4 +212,30 @@ The Rap Review app allows users to rate and review albums as objectively as poss
 2. Implement Paperclip Gem to add Images -
 3. Rating feature next? -
 
-* 
+* So today I've been spending most of my time trying to fix the deeply nested song attribute 'artist_id'.  My last note from yesterday mentions the issue I was running into when creating a song.  I experimented with a couple of different helper methods and even tried to create some methods which would save the artist id behind the scenes to no avail.  However, I finally figured out how to make the artist id be saved for the song.  Apparently, Rails strong params will actually allow you to alter the attributes directly when creating.  Here's an example...
+
+...normally strong params look like...
+
+def example_params
+  params.require(:example).permit(:sample, :test, :demo)
+end
+
+...but, let's say you wanted to modify an attribute behind the scenes.  You can change up the params like this...
+
+def example_params
+  params.require(:example).permit(:sample, :test, :demo => "This is a test")
+end
+
+...by doing this, the attribute will all be fixed to whatever you set the attribute to.  You can even put in dynamic values like I did with artist_id...
+
+def song_params
+  params.require(:song).permit(:title, :features, :writers, :artist_id => @album.artist_id)
+end
+
+...so now, every time a admin creates a song it will have the artist id of the associated album its nested under.  I had to create a separate update_song_params though since all my update test were failing that doesn't have the artist_id in it since I don't want the artist id altered after the song has been created...
+
+def update_song_params
+  params.require(:song).permit(:title, :features, :writers)
+end
+
+...I'm going to keep playing around with the app to see if it causes any bugs.  I feel pretty confident it won't create any issues though because all of my controller test continue to past after changing the controller.

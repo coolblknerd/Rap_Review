@@ -68,6 +68,12 @@ RSpec.describe SongsController, type: :controller do
         response.should redirect_to(album_path(album))
       end
 
+      it "saves the artist id to the song" do
+        sign_in admin
+        post :create, artist_id: artist, album_id: album, song: FactoryGirl.attributes_for(:song)
+        expect(song.artist_id).to eq(1)
+      end
+
     end
 
     context "with invalid attributes" do

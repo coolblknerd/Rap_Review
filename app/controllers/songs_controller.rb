@@ -15,7 +15,7 @@ class SongsController < ApplicationController
   end
 
   def create
-    @song = @album.songs.create(song_params)
+    @song = @album.songs.build(song_params)
     authorize @song
 
     if @song.save
@@ -34,7 +34,7 @@ class SongsController < ApplicationController
   def update
     authorize @song
 
-    if @song.update(song_params)
+    if @song.update(update_song_params)
       flash[:success] = 'Song successfully updated'
       redirect_to song_path(@song)
     else
@@ -53,6 +53,10 @@ class SongsController < ApplicationController
 
   private
 
+  def find_artist
+    @artist = Artist.find(params[:artist_id])
+  end
+
   def find_album
     @album = Album.find(params[:album_id])
   end
@@ -62,6 +66,10 @@ class SongsController < ApplicationController
   end
 
   def song_params
+    params.require(:song).permit(:title, :features, :writers, :artist_id => @album.artist_id)
+  end
+
+  def update_song_params
     params.require(:song).permit(:title, :features, :writers)
   end
 
