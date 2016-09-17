@@ -16,6 +16,7 @@ class SongsController < ApplicationController
 
   def create
     @song = @album.songs.build(song_params)
+    add_artist_id
     authorize @song
 
     if @song.save
@@ -36,7 +37,7 @@ class SongsController < ApplicationController
 
     if @song.update(update_song_params)
       flash[:success] = 'Song successfully updated'
-      redirect_to song_path(@song)
+      redirect_to album_path(@song) # <= 'Question emoji' face
     else
       flash[:error] = 'Sorry, we could not update your song'
       render 'edit'
@@ -52,6 +53,10 @@ class SongsController < ApplicationController
   end
 
   private
+
+  def add_artist_id
+    @song.artist_id = @album.artist_id
+  end
 
   def find_artist
     @artist = Artist.find(params[:artist_id])

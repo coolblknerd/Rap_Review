@@ -5,6 +5,8 @@
 
 <% @album.songs.each do |song| %>
   <p><%= song.title %></p>
+  <p><%= link_to 'Update', edit_song_path(song) %></p>
+  <p><%= link_to 'Delete', song_path(song), method: :delete %></p>
 <% end %>
 <br>
 <%= link_to 'Create Song', new_album_song_path(@album), class: 'btn btn-primary' %>

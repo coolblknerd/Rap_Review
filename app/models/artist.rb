@@ -5,4 +5,8 @@ class Artist < ActiveRecord::Base
 
   validates :name, presence: true
   validates :origin, presence: true
+
+  has_attached_file :profile_img, styles: { med: "350x350", thumb: "100x100" }
+  validates_attachment_content_type :profile_img, content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"]
+
 end

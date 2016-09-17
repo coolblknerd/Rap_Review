@@ -122,7 +122,7 @@ RSpec.describe SongsController, type: :controller do
         sign_in admin
         put :update, artist_id: artist, album_id: album, id: song, song: FactoryGirl.attributes_for(:song, title: "Wicked", features: true)
         song.reload
-        response.should redirect_to(song)
+        response.should redirect_to(album_path(song))
       end
 
     end
@@ -161,7 +161,7 @@ RSpec.describe SongsController, type: :controller do
       }.to change(Song, :count).by(-1)
     end
 
-    it "redirect_to artist page" do
+    it "redirect_to album page" do
       sign_in admin
       delete :destroy, id: @song
       response.should redirect_to(artists_path)

@@ -1,21 +1,26 @@
-<div>
-  <% @artists.each do |artist| %>
-    <h1><%= artist.name %></h1>
-    <small><%= artist.origin %></small>
-    <p><%= artist.bio %></p>
+<div class="container">
+  <div>
+    <% @artists.each do |artist| %>
 
-    <h3>Albums:</h3>
-    <% artist.albums.each do |album| %>
-      <p><%= link_to album.title, album_path(album) %></p>
+    <div class='col-md-4', id='artist-index-img'>
+
+      <!-- Links picture to artist page -->
+      <%= link_to artist_path(artist) do %>
+        <%= image_tag(artist.profile_img.url(:med)) %>
+      <% end %>
+      <br>
+      <br>
+
+      <div class='btn-group' id='artist-index-menu' style='margin: auto;'>
+      <%= link_to 'Albums', artist_albums_path(artist), class: 'btn btn-success' %>
+      <%= link_to "Create Album", new_artist_album_path(artist), class: 'btn btn-primary' %>
+      <%= link_to "Edit", edit_artist_path(artist), class: 'btn btn-info' %>
+      <%= link_to "Delete", artist_path(artist), method: :delete, class: 'btn btn-danger' %>
+      </div>
+    </div>
+
     <% end %>
-    <p><%= link_to 'More Albums', artist_albums_path(artist), class: 'btn btn-success' %></p>
 
-    <%= link_to "Create Album", new_artist_album_path(artist), class: 'btn btn-primary' %>
-    <%= link_to "Edit Artist", edit_artist_path(artist), class: 'btn btn-default pull-right' %>
-    <%= link_to "Delete", artist_path(artist), method: :delete, class: 'btn btn-default pull-right' %>
-
-  <% end %>
-
-</div><br />
-
-<%= link_to 'Create Artist', new_artist_path, class: 'btn btn-default' %>
+  </div>
+  <%= link_to 'Create Artist', new_artist_path, class: 'btn btn-default' %>
+</div>

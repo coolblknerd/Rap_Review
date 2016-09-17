@@ -13,6 +13,11 @@
   <% end %>
 
   <div class="form-group">
+    <label for="profile_img">Profile Picture</label>
+    <%= f.file_field :profile_img %>
+  </div>
+
+  <div class="form-group">
     <%= f.label :name %>
     <%= f.text_field :name, placeholder: 'Name', class: 'form-control', id: 'artist_name' %>
   </div>

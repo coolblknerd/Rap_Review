@@ -208,9 +208,9 @@ The Rap Review app allows users to rate and review albums as objectively as poss
 
 9/9/16 - Focus Points
 --------------------------------
-1. Write Update/Destroy Song Feature Test -
-2. Implement Paperclip Gem to add Images -
-3. Rating feature next? -
+1. Write Update/Destroy Song Feature Test - Complete
+2. Implement Paperclip Gem to add Images - Complete
+3. Modify User Table - Hold
 
 * So today I've been spending most of my time trying to fix the deeply nested song attribute 'artist_id'.  My last note from yesterday mentions the issue I was running into when creating a song.  I experimented with a couple of different helper methods and even tried to create some methods which would save the artist id behind the scenes to no avail.  However, I finally figured out how to make the artist id be saved for the song.  Apparently, Rails strong params will actually allow you to alter the attributes directly when creating.  Here's an example...
 
@@ -239,3 +239,45 @@ def update_song_params
 end
 
 ...I'm going to keep playing around with the app to see if it causes any bugs.  I feel pretty confident it won't create any issues though because all of my controller test continue to past after changing the controller.
+
+* After playing around some more with the app and tweaking some things I discovered that the method I created to help aid in adding the artist id is necessary for the attribute to actually change...
+
+def add_artist_id
+  @song.artist_id = @album.artist_id
+end
+
+...this method is called after I set the @song variable and before Pundit authorizes the current_user.  Despite me adding the ':artist_id' attribute to my strong params, rails requires and extra call to in the controller action which actually sets the artist_id of the song.  I'm having to assume that when making changes to the strong params that you're going to have to create an associated method to place within the action in order for the modification to actually stick.
+
+-----------------------------------------
+
+
+9/11/16 - Focus Points
+---------------------------
+1. Implement Avatar to User - Completed
+2. Add Artist, Album, & Song Cover art - Added Artist
+
+* Added the avatar feature to the user model and I made sure the avatar was visible in the navbar so I knew it was working.  Not too much work.  Had to reconfigure somethings in devise in order to get the avatar to actually save, specifically changing the strong params so that it accepts usernames & avatars.
+
+--------------------------------------
+
+
+9/12/16 - Focus Points
+----------------------------
+1. Add Album Cover Art - Added to Database
+
+* Added the cover art to the db.  I still need to add it to forms and show pages.
+
+* Funky little hiccup I ran into while migrating.  If you have 'rails c --sandbox' in process migrations will get hung up.  Took me reading through stack overflow until I figured that out.  Weird issue but good to be aware of in the future.
+
+---------------------------------------
+
+
+9/14/16 - Focus Points
+----------------------------
+1. Design the Artist Index/Show page - Began
+
+* Between today and yesterday I began to design the artist show and index page.  I've made some definite progress despite a few hiccups.  I'm still trying to understand how paperclip resizes photos because when the photo is two times wider than the height the image ends up being too long to use for a profile image.  However, once the dimensions of the image are right everything looks fine.  I need to switch up the background image for the artist.  It will work for right now but it needs to be artist relevant down the line.  The artist index page needs to be modified a little bit with some javascript.  I'll focus on that when I begin implementing Angular.  Right now, I just need to remain focused on functionality as I build out the rest of my features
+
+* Things to start thinking about...
+  - Implementing the Review system => Module ? Like/Dislike System
+  - Adding Comment System => Model (Interface)

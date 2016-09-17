@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160825054735) do
+ActiveRecord::Schema.define(version: 20160913044952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,8 +20,12 @@ ActiveRecord::Schema.define(version: 20160825054735) do
     t.string   "title"
     t.string   "label"
     t.integer  "artist_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "cover_art_file_name"
+    t.string   "cover_art_content_type"
+    t.integer  "cover_art_file_size"
+    t.datetime "cover_art_updated_at"
   end
 
   add_index "albums", ["artist_id"], name: "index_albums_on_artist_id", using: :btree
@@ -30,8 +34,12 @@ ActiveRecord::Schema.define(version: 20160825054735) do
     t.text     "bio"
     t.string   "name"
     t.string   "origin"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "profile_img_file_name"
+    t.string   "profile_img_content_type"
+    t.integer  "profile_img_file_size"
+    t.datetime "profile_img_updated_at"
   end
 
   create_table "songs", force: :cascade do |t|
@@ -60,7 +68,12 @@ ActiveRecord::Schema.define(version: 20160825054735) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.integer  "role"
+    t.integer  "role",                   default: 0,  null: false
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.string   "username",               default: "", null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
