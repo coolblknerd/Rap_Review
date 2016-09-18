@@ -2,6 +2,15 @@ class Album < ActiveRecord::Base
 
   belongs_to :artist
   has_many :songs
+  has_many :votes, through: :songs do
+
+    def total_likes
+      total = 0
+      self.each { |vote| total += vote.likes }
+      total
+    end
+
+  end
 
   validates :title, presence: true
   validates :label, presence: true

@@ -5,33 +5,36 @@
 <!-- The bg im can be a separate image from the profile image and needs to have its own methods/column under artist -->
 
 <div class="container">
-  <div class="artist-profile">
+  <section>
+    <div class="artist-profile">
 
-    <div class="row">
-      <div class="col-md-4">
-        <div class='artist-profile-img-wrapper'>
-          <%= image_tag(@artist.profile_img.url(:med), class: 'artist-profile-img', style: 'width: 350px;') %>
+      <div class="row">
+        <div class="col-md-4">
+          <div class='artist-profile-img-wrapper'>
+            <%= image_tag(@artist.profile_img.url(:med), class: 'artist-profile-img') %>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+          <div class="col-md-4 text-center">
+            <h4>Albums</h4>
+            <%= @artist.albums.count %>
+          </div>
+          <div class="col-md-4 text-center">
+            <h4>Songs</h4>
+            <%= @artist.songs.count %>
+          </div>
+          <div class="col-md-4 text-center">
+            <h4>Rating</h4>
+          </div>
         </div>
       </div>
-      <div class="col-md-8">
-        <div class="col-md-4 text-center">
-          <h4>Albums</h4>
-          <%= @artist.albums.count %>
-        </div>
-        <div class="col-md-4 text-center">
-          <h4>Songs</h4>
-          <%= @artist.songs.count %>
-        </div>
-        <div class="col-md-4 text-center">
-          <h4>Rating</h4>
-        </div>
+
+      <div class="artist-profile-text">
+        <h1><%= @artist.name %></h1>
+        <small><%= @artist.origin %></small>
       </div>
-    </div>
 
-    <div class="artist-profile-text">
-      <h1><%= @artist.name %></h1>
-      <small><%= @artist.origin %></small>
     </div>
-
-  </div>
+  </section>
 </div> <!-- /container -->

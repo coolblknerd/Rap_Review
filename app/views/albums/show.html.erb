@@ -1,12 +1,41 @@
-<h1>
-  <%= @album.title %>
-</h1>
-<small><%= @album.label %></small><br>
+<div class="container-fluid">
+  <div class='row'>
+    <h1>
+      <%= @album.title %>
+    </h1>
+    <small><%= @album.label %></small><br>
+  </div>
 
-<% @album.songs.each do |song| %>
-  <p><%= song.title %></p>
-  <p><%= link_to 'Update', edit_song_path(song) %></p>
-  <p><%= link_to 'Delete', song_path(song), method: :delete %></p>
-<% end %>
-<br>
-<%= link_to 'Create Song', new_album_song_path(@album), class: 'btn btn-primary' %>
+  <div class='row'>
+    <div class="col-md-6">
+      <% @album.songs.each do |song| %>
+      <table class="table">
+        <tr>
+          <td><h4><%= song.title %></h4></td>
+          <td>
+            <%= link_to upvote_song_path(song), method: :put, class: 'btn btn-primary' do %>
+            Like <span class='badge'><%= song.vote.likes %></span>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to downvote_song_path(song), method: :put, class: 'btn btn-danger' do %>
+            Dislike <span class='badge'><%= song.vote.dislikes %></span>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to 'Update', edit_song_path(song) %>
+          </td>
+          <td>
+            <%= link_to 'Delete', song_path(song), method: :delete %>
+          </td>
+        </tr>
+      </table>
+      <% end %>
+    </div>
+  </div>
+
+  <div class='row'>
+    <%= link_to 'Create Song', new_album_song_path(@album), class: 'btn btn-primary' %>
+  </div>
+
+</div>

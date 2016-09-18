@@ -1,6 +1,6 @@
 class SongsController < ApplicationController
   before_action :find_album, only: [:new, :create]
-  before_action :find_song, only: [:show, :edit, :update, :destroy]
+  before_action :find_song, only: [:show, :edit, :update, :destroy, :upvote]
 
   def index
     @artist = Artist.find(params[:artist_id])
@@ -50,6 +50,12 @@ class SongsController < ApplicationController
     @song.destroy
 
     redirect_to artists_path
+  end
+
+  def upvote
+    @song.vote.likes += 1
+    @song.save
+    redirect_to @song.album
   end
 
   private

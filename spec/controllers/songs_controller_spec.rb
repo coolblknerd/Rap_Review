@@ -6,6 +6,7 @@ RSpec.describe SongsController, type: :controller do
   let(:album) { FactoryGirl.create(:album) }
   let(:song) { FactoryGirl.create(:song) }
   let(:admin) { FactoryGirl.create(:user, :admin)}
+  let(:vote) { FactoryGirl.create(:vote) }
 
   describe "GET index" do
 
@@ -166,5 +167,15 @@ RSpec.describe SongsController, type: :controller do
       delete :destroy, id: @song
       response.should redirect_to(artists_path)
     end
+  end
+
+  describe "PUT upvote" do
+
+    it "adds a like to vote" do
+      expect{
+        put :upvote, artist_id: artist, album_id: album, song_id: song, id: vote
+      }.to change{ vote.likes }.from(1).to(2)
+    end
+
   end
 end
