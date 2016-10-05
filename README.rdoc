@@ -1,4 +1,4 @@
--- Rap Review App --
+-- Rap Review App (Rails 4.2.6)--
 
 The Rap Review app allows users to rate and review albums as objectively as possible by allowing them to rate each song from an artist by album or mixtape.  The app then aggregates an average score of the album based on the totality of ratings of their songs.  Then each album/mixtape rating is aggregated to create an overall score for the artist.
 
@@ -281,3 +281,67 @@ end
 * Things to start thinking about...
   - Implementing the Review system => Module ? Like/Dislike System
   - Adding Comment System => Model (Interface)
+
+-----------------------------------------
+
+
+9/18/16 - Focus Points
+----------------------------
+1. Begin Build/Test of Vote Feature - Incomplete
+2. Style Like/Dislike Feature - Incomplete
+
+* No notes
+
+----------------------------------------
+
+
+9/25/16 - Focus Points
+----------------------------
+1. Rebuild/Design Like/Dislike Feature - Incomplete
+1. Rebuild/Test Vote Feature - Incomplete
+
+* Trying to build out the Vote/Like/Dislike feature has been a hurdle.  After building and testing one system I'm going to rebuild the feature which allows me to have more control over how the app calculates the app.
+
+So far the app has worked as such.  Song has_one Vote and the Vote table has a column for 'likes', 'dislikes', and 'song_id'.  The likes and dislikes columns keeps tabs on the users who like or dislike a song.  The total amount of likes and dislikes would be added up and a rating would be created using a simple formula (likes/dislikes divided by total likes then multiplied by 100).  I would also use those likes/dislikes to account for album/artist rating.
+
+The feature currently built works fine, however, I want to be able to keep track of what user likes what song so that I can create a feature down the line which recommends music to users.  Therefore, I'm going to rebuild the vote system and create a Like and Dislike class which belong to the vote and user.  I think this will be a able easier system to maintain in the long haul (giving certain objects a single responsibility) versus the way the app is currently assembled.
+
+------------------------------------------
+
+
+9/27/16 - Focus Points
+----------------------------
+1. Rebuild/Design Like/Dislike Feature - Complete
+
+* I scrapped the old vote feature and recreated the new design for the like/dislike system.  Everything seems to be working fine, including finding the user through the associated user_id of a specific like.  Right now, I'm trying to create a way for the app to check the array of likes on a song to make sure a user cannot vote more than once or if they do vote again it can only be the opposite vote (i.e. - user likes a song but a week later they change their mind and want to revote the video as a dislike).  Looking through the API to see what kinds of methods there are that will help me find solve this problem.  Don't think I will be able to find one tonight.
+
+------------------------------------------
+
+
+9/28/16 - Focus Points
+----------------------------
+1. Rebuild/Test Vote/Like/Dislike Feature - Stalemate
+
+* I've been able to come up with a working version of the Like/Dislike Feature that even keeps a user from voting more than once.  My issue now is that I can't seem to get the test right.  I've tried a couple of different ways of trying to track the count of the instance of Like that is being created but I keep getting a routing error despite the app actually working the way I expect it too.  I don't think there is anything wrong underneath the hood of the function.  I think this is simply a matter of figuring out the right combination to make the test pass.
+
+* I may need to comeback and revisit the test design but I know for sure the next step is to only allow authorized members to vote.  Therefore I'll be creating a policy on who can/cannot vote on certain songs.  From there, I'm going to experiment with creating a method that will create a like and dislike rating based on the likes/dislikes to total votes ratio.
+
+------------------------------------------
+
+
+10/3/16 - Focus Points
+------------------------------
+1. Create methods to calculate song/album ratings - Complete
+
+* Created some methods to calculate the ratings for the songs and albums.  Tested the methods out in the rails console and everything looks good so far.  I'll need to create some methods for the artist and also test all of these new methods.
+
+------------------------------------------
+
+
+10/4/16 - Focus Points
+------------------------------
+1. Added User Authorization and Tested to Vote Sys. - Completed
+
+* I've completed the user authorization for the voting system which wasn't a difficult feature to implement.  I worked on trying to test the associations and some of the methods which depend on inheritance but I haven't been able to figure out how to make any test involving two associated classes pass.  I'm starting to think the best way is to use integration testing to test associated classes & relationships.
+
+I have many of the features I need built out to begin implementing Angular 2.  I want to add a follower system (users can follow users/artists) and a feed to the dashboard before moving forward with the JS portion of the app.  Also, the design needs to be cleaned up some more too. 

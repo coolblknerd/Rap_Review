@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160918093803) do
+ActiveRecord::Schema.define(version: 20160928050642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,26 @@ ActiveRecord::Schema.define(version: 20160918093803) do
     t.integer  "profile_img_file_size"
     t.datetime "profile_img_updated_at"
   end
+
+  create_table "dislikes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "vote_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "dislikes", ["user_id"], name: "index_dislikes_on_user_id", using: :btree
+  add_index "dislikes", ["vote_id"], name: "index_dislikes_on_vote_id", using: :btree
+
+  create_table "likes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "vote_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "likes", ["user_id"], name: "index_likes_on_user_id", using: :btree
+  add_index "likes", ["vote_id"], name: "index_likes_on_vote_id", using: :btree
 
   create_table "songs", force: :cascade do |t|
     t.string   "title"
@@ -80,16 +100,18 @@ ActiveRecord::Schema.define(version: 20160918093803) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "votes", force: :cascade do |t|
-    t.integer  "likes",      default: 0, null: false
-    t.integer  "dislikes",   default: 0, null: false
     t.integer  "song_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "votes", ["song_id"], name: "index_votes_on_song_id", using: :btree
 
   add_foreign_key "albums", "artists"
+  add_foreign_key "dislikes", "users"
+  add_foreign_key "dislikes", "votes"
+  add_foreign_key "likes", "users"
+  add_foreign_key "likes", "votes"
   add_foreign_key "songs", "albums"
   add_foreign_key "songs", "artists"
   add_foreign_key "votes", "songs"

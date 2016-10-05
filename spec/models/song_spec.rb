@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Song, type: :model do
 
   describe "initialization" do
-    let(:views) { Song.new(title: "Views", features: false, writers: "Drake") }
+    let(:views) { Song.new(title: "Views", features: false, writers: "Drake", id: 1) }
 
     it { should belong_to(:album) }
     it { should belong_to(:artist) }

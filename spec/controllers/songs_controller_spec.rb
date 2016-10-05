@@ -7,6 +7,7 @@ RSpec.describe SongsController, type: :controller do
   let(:song) { FactoryGirl.create(:song) }
   let(:admin) { FactoryGirl.create(:user, :admin)}
   let(:vote) { FactoryGirl.create(:vote) }
+  let(:like) { FactoryGirl.create(:like) }
 
   describe "GET index" do
 
@@ -169,12 +170,13 @@ RSpec.describe SongsController, type: :controller do
     end
   end
 
-  describe "PUT upvote" do
+  describe "POST upvote" do
 
     it "adds a like to vote" do
+
       expect{
-        put :upvote, artist_id: artist, album_id: album, song_id: song, id: vote
-      }.to change{ vote.likes }.from(1).to(2)
+        post :upvote, artist_id: artist, album_id: album, song_id: song, vote_id: vote, like: FactoryGirl.attributes_for(:like)
+      }.to change(Like, :count).by(1)
     end
 
   end

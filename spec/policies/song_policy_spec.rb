@@ -75,4 +75,16 @@ describe SongPolicy do
     end
   end
 
+  permissions :upvote? do
+    it 'allows member to add a like' do
+      expect(subject).to permit member
+    end
+  end
+
+  permissions :downvote? do
+    it 'allows member to add a dislike' do
+      expect(subject).to permit member
+    end
+  end
+
 end

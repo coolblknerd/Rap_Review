@@ -16,12 +16,10 @@ Rails.application.routes.draw do
 
   resources :songs do
     member do
-      put :upvote
-      put :downvote
+      post :upvote
+      post :downvote
     end
   end
-
-put 'songs/:id/vote/:id/likes', :controller => 'votes', :action => 'upvote'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -4,10 +4,33 @@ class Album < ActiveRecord::Base
   has_many :songs
   has_many :votes, through: :songs do
 
+    # This will count up the total likes amongs all the songs
     def total_likes
       total = 0
-      self.each { |vote| total += vote.likes }
+      self.each { |vote| total += vote.likes.count }
       total
+    end
+
+    def total_dislikes
+      total = 0
+      self.each { |vote| total += vote.dislikes.count }
+      total
+    end
+
+    # Tallies the votes
+    def total_votes
+      total_likes + total_dislikes
+    end
+
+    # gives the overall rating percent for album
+    def like_percent
+      sum = (total_likes/total_votes) * 100
+      sum.round(1).to_s + "%"
+    end
+
+    def dislike_percent
+      sum = (total_likes/total_votes) * 100
+      sum.round(1).to_s + "%"
     end
 
   end

@@ -3,14 +3,13 @@ require 'rails_helper'
 RSpec.describe Vote, type: :model do
 
   describe "initialization" do
-    let(:views) { Song.new(title: "Views", features: false, writers: "Drake", id: 1) }
-    let(:view_vote) { Vote.new(likes: 0, dislikes: 0, song_id: 1)}
+    let(:views) { Song.create(title: "Views", features: false, writers: "Drake") }
+    let(:vote) { Vote.create(song_id: views.id)}
 
     it { should belong_to(:song) }
-    it { view_vote.should be_valid }
-    it { view_vote.likes.should eq(0)}
-    it { view_vote.song_id.should eq(views.id)}
-
+    it { vote.should be_valid }
+    it { vote.song_id.should eq(views.id) }
+    it { should have_many(:likes) }
   end
 
 end

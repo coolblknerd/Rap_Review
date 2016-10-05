@@ -53,9 +53,29 @@ class SongsController < ApplicationController
   end
 
   def upvote
-    @song.vote.likes += 1
-    @song.save
-    redirect_to @song.album
+    if !@song.vote.likes.any? { |x| x.user_id == current_user.id }
+      @vote = @song.vote.likes.build
+      @vote.user_id = current_user.id
+      @vote.save
+      redirect_to @song.album
+    else
+      flash[:error] = "You've already liked this song!"
+      puts "Nope, can't vote again"
+      redirect_to @song.album
+    end
+  end
+
+  def downvote
+    if !@song.vote.dislikes.any? { |x| x.user_id == current_user.id }
+      @vote = @song.vote.likes.build
+      @vote.user_id = current_user.id
+      @vote.save
+      redirect_to @song.album
+    else
+      flash[:error] = "You've already liked this song!"
+      puts "Nope, can't vote again"
+      redirect_to @song.album
+    end
   end
 
   private

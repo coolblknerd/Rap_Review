@@ -34,4 +34,12 @@ class SongPolicy
     @user.admin?
   end
 
+  def upvote?
+    @user.member? || @user.admin?
+  end
+
+  def downvote?
+    @user.member? || @user.admin?
+  end
+
 end

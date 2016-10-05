@@ -13,13 +13,13 @@
         <tr>
           <td><h4><%= song.title %></h4></td>
           <td>
-            <%= link_to upvote_song_path(song), method: :put, class: 'btn btn-primary' do %>
-            Like <span class='badge'><%= song.vote.likes %></span>
+            <%= link_to upvote_song_path(song), method: :post, class: 'btn btn-primary' do %>
+            Like <span class='badge'><%= song.vote.likes.count %></span>
             <% end %>
           </td>
           <td>
-            <%= link_to downvote_song_path(song), method: :put, class: 'btn btn-danger' do %>
-            Dislike <span class='badge'><%= song.vote.dislikes %></span>
+            <%= link_to downvote_song_path(song), method: :post, class: 'btn btn-danger' do %>
+            Dislike <span class='badge'><%= song.vote.dislikes.count %></span>
             <% end %>
           </td>
           <td>
